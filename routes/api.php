@@ -23,4 +23,9 @@ Route::post('/storeSaving', 'Api\SavingController@storeSaving');
 
 Route::get('mySavings/{id}', 'Api\SavingController@mySavings');
 
+Route::post('saveAirtime', 'Api\AirtimeController@saveAirtime');
+
+Route::get('myAirtime/{amount}/{operator}', 'Api\AirtimeController@myAirtime');
+
+
 // Route::post('/updateSaving/{id}', 'Api\SavingController@updateSaving');

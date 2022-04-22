@@ -6,15 +6,23 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Saving;
 use DB;
+use App\Http\Resources\SavingResource;
 
 
 class SavingController extends Controller
 {
 
+     public function __construct()
+    {
+       
+        $this->middleware('JWT', ['except' => ['mySavings','allSavings']]);
+
+        
+    }
+
     public function allSavings()
     {
-        $saving = Saving::all();
-        return response()->json($saving);
+        return SavingResource::collection(Saving::latest()->get());
     }
 
 
@@ -59,9 +67,10 @@ class SavingController extends Controller
 
     public function mySavings($id)
     {
-        $saving = DB::table('savings')->where('id',$id)->first();
 
-        return response()->json($saving);
+        return new SavingResource(Saving::where('id',$id)->first());
+
+        
     }
 
 
